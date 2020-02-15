@@ -86,6 +86,15 @@ class App extends Component {
         });
     }
 
+handleFormSubmit(username){
+        this.setState({username:username},function () {
+        this.getUserData();
+        this.getUserFollowers();
+        this.getUserFollowing();
+        this.getUserRepos();
+
+        });
+}
 
     componentDidMount() {
         this.getUserData();
@@ -98,6 +107,8 @@ class App extends Component {
     render(){
         return (
             <React.Fragment>
+                <h1><center>Github Search</center></h1>
+                <Search onFormSubmit = {this.handleFormSubmit.bind(this)} />
                 <Profile
                     userData = {this.state.userData }
                     userFollowers = {this.state.userFollowers}
@@ -140,7 +151,7 @@ class Profile extends Component {
     render() {
         return(
             <React.Fragment>
-                <h1><center>Github Search</center></h1>
+
                 <MDBContainer>
                     <MDBRow>
                         <MDBCol md="3">
@@ -284,6 +295,30 @@ class Profile extends Component {
     }
 }
 
+class Search extends Component {
+    onSubmit(e){
+        e.preventDefault();
+        let username = this.refs.username.value.trim();
+        if(!username){
+            alert('Please enter a valid username');
+            return;
+        }
+        this.props.onFormSubmit(username);
+        this.refs.username.value = '';
+    }
+
+    render() {
+        return(
+            <React.Fragment>
+                <form onSubmit={this.onSubmit.bind(this)}>
+                    <label>Search Users</label>
+                    <input type="text" ref="username" className="form-control" />
+
+                </form>
+            </React.Fragment>
+        )
+    }
+}
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
