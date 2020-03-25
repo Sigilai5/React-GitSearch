@@ -65,7 +65,6 @@ class App extends Component {
                 console.log(data);
             }.bind(this),
             error:function(xhr,status,err){
-                alert(err);
             }.bind(this)
         });
     }
@@ -160,7 +159,13 @@ class Profile extends Component {
                                 src={this.props.userData.avatar_url}
                                 className="img-fluid"
                                 alt=""
-                                radius="50%"
+                                style={{
+                                    //Below lines will help to set the border radius
+                                    borderBottomLeftRadius: 250,
+                                    borderBottomRightRadius: 250,
+                                    borderTopRightRadius: 250,
+                                    borderTopLeftRadius: 250,
+                                    overflow: 'hidden',}}
                             />
                             <br />
                             <h3><MDBIcon icon="user-check" /> {this.props.userData.login}</h3>
@@ -263,7 +268,6 @@ class Profile extends Component {
                                                         src={this.props.userData.avatar_url}
                                                         className="img-fluid"
                                                         alt=""
-                                                        width="80px"
                                                         style={{width: 100,
                                                             height: 100,
                                                             //Below lines will help to set the border radius
@@ -325,4 +329,4 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register();
